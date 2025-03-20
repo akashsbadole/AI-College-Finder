@@ -32,11 +32,13 @@ import Footer from "./components/footer";
 import BestCBSESchools from "./pages/BestCBSESchools";
 import EntranceExams from "./pages/EntranceExams";
 import MedicalColleges from "./pages/MedicalColleges";
+import HeroSection from "./components/HeroSection";
 
 function App() {
   const [activeTab, setActiveTab] = useState("search");
-  const [collegeSuggestions, setCollegeSuggestions] = useState<string[]>([]);
+  const [collegeSuggestions, setCollegeSuggestions] = useState<any[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const featuredInstitutes = [
     {
@@ -99,19 +101,26 @@ function App() {
   }) => {
     const query = event.target.value;
     setSearchQuery(query);
-    console.log("Input Change:", query); // Debug log
-    if (query.length > 2) {
-      const suggestions = await getCollegeRecommendations({
-        examType: "",
-        score: 0,
-        location: "",
-        budget: 0,
-        stream: query,
-      });
-      console.log("Suggestions from input change:", suggestions); // Debug log
-      setCollegeSuggestions(Array.isArray(suggestions) ? suggestions : []);
-    } else {
-      setCollegeSuggestions([]);
+
+    try {
+      if (query.length > 2) {
+        setIsLoading(true);
+        const suggestions = await getCollegeRecommendations({
+          examType: "",
+          score: 0,
+          location: "",
+          budget: 0,
+          stream: query,
+        });
+        setCollegeSuggestions(suggestions);
+      } else {
+        setCollegeSuggestions([]);
+      }
+    } catch (error) {
+      console.error("Error fetching suggestions:", error);
+      setCollegeSuggestions(["Error fetching college suggestions"]);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -149,66 +158,136 @@ function App() {
               {/* Hero Section */}
               <div className="bg-gradient-to-r from-indigo-600 to-blue-500">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-                  <div className="text-center">
-                    <h2 className="text-4xl font-extrabold text-white sm:text-5xl">
-                      Discover Top Indian Colleges & Schools
-                    </h2>
-                    <p className="mt-4 text-xl text-indigo-100">
-                      AI-powered recommendations for JEE, NEET, CUET, and more
-                    </p>
-                  </div>
+                  <HeroSection />
 
                   {/* Search Bar */}
-                  <div className="mt-8">
+                  <div className="mt-8 relative">
                     <div className="max-w-3xl mx-auto">
                       <div className="flex bg-white rounded-lg shadow-lg p-2">
                         <input
                           type="text"
                           placeholder="Search IITs, NITs, Medical Colleges, Schools..."
                           className="flex-1 px-4 py-2 outline-none"
-                          name="college"
-                          onChange={handleCollegeInputChange} // Add onChange handler
+                          value={searchQuery}
+                          onChange={handleCollegeInputChange}
                         />
                         <Button
                           className="flex items-center space-x-2"
-                          onClick={handleSearchClick} // Add onClick handler
+                          onClick={handleSearchClick}
                         >
                           <Search className="h-5 w-5" />
                           <span>Search</span>
                         </Button>
                       </div>
-                      {/* Display suggestions */}
+
+                      {/* Suggestions Popup */}
                       {collegeSuggestions.length > 0 && (
-                        <div className="bg-white shadow-lg rounded-lg mt-2">
-                          <ul>
-                            {collegeSuggestions.map((suggestion, index) => (
-                              <li
-                                key={index}
-                                className="px-4 py-2 hover:bg-gray-100"
-                              >
-                                {suggestion}
+                        <div className="absolute z-50 w-3/5 mt-2 bg-white rounded-lg shadow-xl border border-gray-200">
+                          <ul className="max-h-[80vh] overflow-auto">
+                            {isLoading ? (
+                              <li className="px-4 py-3 text-gray-500">
+                                Loading college details...
                               </li>
-                            ))}
+                            ) : (
+                              collegeSuggestions.map((college, index) => (
+                                <li
+                                  key={index}
+                                  className="p-4 hover:bg-gray-50 border-b last:border-b-0"
+                                >
+                                  <div className="grid gap-2">
+                                    <h3 className="font-semibold text-lg text-indigo-600">
+                                      {college.collegeName}
+                                    </h3>
+                                    <div className="grid grid-cols-2 gap-4 text-sm">
+                                      <div>
+                                        <p>
+                                          <span className="font-medium">
+                                            Established:
+                                          </span>{" "}
+                                          {college.establishedYear}
+                                        </p>
+                                        <p>
+                                          <span className="font-medium">
+                                            Rating:
+                                          </span>{" "}
+                                          {college.rating} ⭐
+                                        </p>
+                                        <p>
+                                          <span className="font-medium">
+                                            University:
+                                          </span>{" "}
+                                          {college.university}
+                                        </p>
+                                        <p>
+                                          <span className="font-medium">
+                                            Type:
+                                          </span>{" "}
+                                          {college.collegeType}
+                                        </p>
+                                      </div>
+                                      <div>
+                                        <p>
+                                          <span className="font-medium">
+                                            Location:
+                                          </span>{" "}
+                                          {college.city}, {college.state}
+                                        </p>
+                                        <p>
+                                          <span className="font-medium">
+                                            Average Fees:
+                                          </span>{" "}
+                                          {college.averageFees}
+                                        </p>
+                                      </div>
+                                    </div>
+                                    <div className="mt-2">
+                                      <p>
+                                        <span className="font-medium">
+                                          Courses:
+                                        </span>
+                                      </p>
+                                      <div className="flex flex-wrap gap-1 mt-1">
+                                        {college.courses.map(
+                                          (course: string, i: number) => (
+                                            <span
+                                              key={i}
+                                              className="bg-gray-100 px-2 py-1 rounded text-sm"
+                                            >
+                                              {course}
+                                            </span>
+                                          )
+                                        )}
+                                      </div>
+                                    </div>
+                                    <div className="mt-2">
+                                      <p>
+                                        <span className="font-medium">
+                                          Facilities:
+                                        </span>
+                                      </p>
+                                      <div className="flex flex-wrap gap-1 mt-1">
+                                        {college.facilities.map(
+                                          (facility: string, i: number) => (
+                                            <span
+                                              key={i}
+                                              className="bg-gray-100 px-2 py-1 rounded text-sm"
+                                            >
+                                              {facility}
+                                            </span>
+                                          )
+                                        )}
+                                      </div>
+                                    </div>
+                                    <p className="mt-2 text-sm text-gray-600">
+                                      {college.details}
+                                    </p>
+                                  </div>
+                                </li>
+                              ))
+                            )}
                           </ul>
                         </div>
                       )}
-                      <div className="mt-4 flex flex-wrap gap-2 justify-center">
-                        <Button variant="secondary" size="sm">
-                          IIT
-                        </Button>
-                        <Button variant="secondary" size="sm">
-                          NIT
-                        </Button>
-                        <Button variant="secondary" size="sm">
-                          AIIMS
-                        </Button>
-                        <Button variant="secondary" size="sm">
-                          CBSE Schools
-                        </Button>
-                        <Button variant="secondary" size="sm">
-                          State Boards
-                        </Button>
-                      </div>
                     </div>
                   </div>
                 </div>
