@@ -16,6 +16,26 @@ export interface College {
   };
 }
 
+export interface MedCollege {
+  Id: number;
+  Code: string;
+  College: string;
+  State: string;
+  AnnualFee: number;
+  AdmissionFee: number;
+  AnnualHostelFee: number;
+  Name: string;
+  Address: string;
+  University: string;
+  SessionStart: string;
+  HostelType: string;
+  Bond: string;
+  Reimbursement: number;
+  Days: number;
+  Website: string;
+  OtherInfo: string;
+}
+
 export interface User {
   uid: string;
   email: string;
