@@ -40,6 +40,7 @@ import EntranceExams from "./pages/EntranceExams";
 import MedicalColleges from "./pages/MedicalColleges";
 import HeroSection from "./components/HeroSection";
 import CollegeDetails from "./pages/CollegeDetails";
+import SchoolDetails from "./pages/SchoolDetails";
 
 // Create a new Home component to use navigation
 function Home() {
@@ -298,7 +299,7 @@ function Home() {
             <Link to="/medical-colleges">
               <QuickLink icon={<BookCheck />} text="Medical Colleges" />
             </Link>
-            <Link to="/best-CBSE-schools">
+            <Link to="/cbse-schools">
               <QuickLink icon={<School />} text="Best CBSE Schools" />
             </Link>
             <Link to="/entrance-exams">
@@ -451,12 +452,13 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/engineering-colleges" element={<EngineeringColleges />} />
-        <Route path="/best-CBSE-schools" element={<BestCBSESchools />} />
-        <Route path="/entrance-exams" element={<EntranceExams />} />
-        <Route path="/medical-colleges" element={<MedicalColleges />} />
-        <Route path="/college/:name" element={<CollegeDetails />} />
         <Route path="/" element={<Home />} />
+        <Route path="/engineering-colleges" element={<EngineeringColleges />} />
+        <Route path="/medical-colleges" element={<MedicalColleges />} />
+        <Route path="/entrance-exams" element={<EntranceExams />} />
+        <Route path="/cbse-schools" element={<BestCBSESchools />} />
+        <Route path="/college/:collegeName" element={<CollegeDetails />} />
+        <Route path="/school/:schoolName" element={<SchoolDetails />} />
       </Routes>
     </Router>
   );

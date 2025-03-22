@@ -29,7 +29,7 @@ function MedicalMedColleges() {
         return response.json();
       })
       .then((data) => {
-        console.log("Raw data:", data); // Debug log to see full response
+        // console.log("Raw data:", data); // Debug log to see full response
         if (!data || !Array.isArray(data)) {
           throw new Error("Invalid data format");
         }
@@ -135,15 +135,15 @@ function MedicalMedColleges() {
                 </p>
                 <p className="text-gray-600">
                   {" "}
-                  <strong>SessionStart:</strong> {college["Session Start"]}
+                  <strong>SessionStart:</strong> {college["SessionStart"]}
                 </p>
                 <p className="text-gray-600">
                   {" "}
-                  <strong> Admission Fee:</strong> {college["Admission Fee"]}
+                  <strong> Admission Fee:</strong> {college["AdmissionFee"]}
                 </p>
                 <p className="text-gray-600">
                   <strong>💰Annual Fees:</strong> ₹
-                  {college["Annual Fee"]?.toLocaleString()}/year
+                  {college["AnnualFee"]?.toLocaleString()}/year
                 </p>
               </div>
             ))}
