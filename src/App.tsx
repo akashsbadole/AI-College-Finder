@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { ClerkProvider } from '@clerk/clerk-react';
 import {
   Search,
   GraduationCap,
@@ -43,6 +44,11 @@ import CollegeDetails from "./pages/CollegeDetails";
 import SchoolDetails from "./pages/SchoolDetails";
 import EntranceExamDetails from "./pages/EntranceExamDetails";
 import { HelmetProvider, Helmet } from "react-helmet-async";
+import Dashboard from "./pages/Dashboard";
+import ProtectedRoute from "./components/ProtectedRoute";
+
+// Add this near the top of the file, after imports
+const clerkPubKey = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
 // Create a new Home component to use navigation
 function Home() {
@@ -457,23 +463,33 @@ function Home() {
   );
 }
 
-// Simplify the App component
+// Wrap the entire app with ClerkProvider
 function App() {
   return (
-    <HelmetProvider>
-      <Router>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/engineering-colleges" element={<EngineeringColleges />} />
-          <Route path="/medical-colleges" element={<MedicalColleges />} />
-          <Route path="/best-cbse-schools" element={<BestCBSESchools />} />
-          <Route path="/entrance-exams" element={<EntranceExams />} />
-          <Route path="/college/:name" element={<CollegeDetails />} />
-          <Route path="/school/:name" element={<SchoolDetails />} />
-          <Route path="/exam/:name" element={<EntranceExamDetails />} />
-        </Routes>
-      </Router>
-    </HelmetProvider>
+    <ClerkProvider publishableKey={clerkPubKey}>
+      <HelmetProvider>
+        <Router>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route
+              path="/dashboard"
+              element={
+                <ProtectedRoute>
+                  <Dashboard />
+                </ProtectedRoute>
+              }
+            />
+            <Route path="/college/:collegeName" element={<CollegeDetails />} />
+            <Route path="/school/:schoolName" element={<SchoolDetails />} />
+            <Route path="/entrance-exam/:examName" element={<EntranceExamDetails />} />
+            <Route path="/engineering-colleges" element={<EngineeringColleges />} />
+            <Route path="/medical-colleges" element={<MedicalColleges />} />
+            <Route path="/best-cbse-schools" element={<BestCBSESchools />} />
+            <Route path="/entrance-exams" element={<EntranceExams />} />
+          </Routes>
+        </Router>
+      </HelmetProvider>
+    </ClerkProvider>
   );
 }
 

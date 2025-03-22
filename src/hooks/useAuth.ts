@@ -1,19 +1,31 @@
+import { useUser, useAuth as useClerkAuth } from '@clerk/clerk-react';
 import { useState, useEffect } from 'react';
-import { auth } from '../lib/firebase';
-import { onAuthStateChanged, User } from 'firebase/auth';
 
 export function useAuth() {
-  const [user, setUser] = useState<User | null>(null);
+  const { isLoaded, isSignedIn, user } = useUser();
+  const { getToken } = useClerkAuth();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setUser(user);
+    if (isLoaded) {
       setLoading(false);
-    });
+    }
+  }, [isLoaded]);
 
-    return unsubscribe;
-  }, []);
+  const getUserToken = async (): Promise<string | null> => {
+    try {
+      const token = await getToken();
+      return token || null;
+    } catch (error) {
+      console.error('Error getting user token:', error);
+      return null;
+    }
+  };
 
-  return { user, loading };
+  return {
+    user,
+    isSignedIn,
+    loading,
+    getUserToken
+  };
 }
