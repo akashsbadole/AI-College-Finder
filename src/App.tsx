@@ -41,6 +41,7 @@ import MedicalColleges from "./pages/MedicalColleges";
 import HeroSection from "./components/HeroSection";
 import CollegeDetails from "./pages/CollegeDetails";
 import SchoolDetails from "./pages/SchoolDetails";
+import EntranceExamDetails from "./pages/EntranceExamDetails";
 
 // Create a new Home component to use navigation
 function Home() {
@@ -456,6 +457,7 @@ function App() {
         <Route path="/engineering-colleges" element={<EngineeringColleges />} />
         <Route path="/medical-colleges" element={<MedicalColleges />} />
         <Route path="/entrance-exams" element={<EntranceExams />} />
+        <Route path="/entrance/:examName" element={<EntranceExamDetails />} />
         <Route path="/cbse-schools" element={<BestCBSESchools />} />
         <Route path="/college/:collegeName" element={<CollegeDetails />} />
         <Route path="/school/:schoolName" element={<SchoolDetails />} />
