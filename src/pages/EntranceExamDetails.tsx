@@ -1,8 +1,10 @@
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import Header from "../components/header";
 import Footer from "../components/footer";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { useState, useEffect } from "react";
+import React from "react";
+import { Helmet } from "react-helmet-async";
 
 interface EntranceExam {
   examName: string;
@@ -29,7 +31,8 @@ interface EntranceExam {
 
 function EntranceExamDetails() {
   const { examName } = useParams();
-  const [exam, setExam] = useState<EntranceExam | null>(null);
+  const location = useLocation();
+  const [exam, setExam] = useState<EntranceExam | null>(location.state?.exam || null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -75,7 +78,6 @@ function EntranceExamDetails() {
           .replace(/```json\n?/g, "")
           .replace(/```\n?/g, "")
           .replace(/^\s+|\s+$/g, "");
-
         const examData: EntranceExam = JSON.parse(text);
         setExam(examData);
       } catch (err) {
@@ -114,7 +116,15 @@ function EntranceExamDetails() {
   }
 
   return (
-    <>
+    <div className="min-h-screen bg-gray-50">
+      <Helmet>
+        <title>{exam.examName || 'Entrance Exam Details'} | AI College Finder</title>
+        <meta name="description" content={`Comprehensive guide to ${exam.examName}. Get detailed information about exam pattern, eligibility criteria, important dates, and preparation tips.`} />
+        <meta name="keywords" content={`${exam.examName}, entrance exam, exam pattern, eligibility, preparation tips, important dates`} />
+        <meta property="og:title" content={`${exam.examName || 'Entrance Exam Details'} | AI College Finder`} />
+        <meta property="og:description" content={`Comprehensive guide to ${exam.examName}. Get detailed information about exam pattern, eligibility criteria, and preparation tips.`} />
+        <meta property="og:type" content="website" />
+      </Helmet>
       <Header />
       <div className="container mx-auto px-4 py-8">
         <div className="bg-white rounded-lg shadow-lg overflow-hidden">
@@ -151,7 +161,7 @@ function EntranceExamDetails() {
               <div className="md:col-span-2">
                 <h2 className="text-xl font-semibold mb-4">Sections</h2>
                 <ul className="list-disc list-inside space-y-1">
-                  {exam.sections.map((section, index) => (
+                  {exam.sections.map((section: string, index: number) => (
                     <li key={index}>{section}</li>
                   ))}
                 </ul>
@@ -160,7 +170,7 @@ function EntranceExamDetails() {
               <div className="md:col-span-2">
                 <h2 className="text-xl font-semibold mb-4">Languages Available</h2>
                 <ul className="list-disc list-inside space-y-1">
-                  {exam.languagesExam.map((language, index) => (
+                  {exam.languagesExam.map((language: string, index: number) => (
                     <li key={index}>{language}</li>
                   ))}
                 </ul>
@@ -183,7 +193,7 @@ function EntranceExamDetails() {
         </div>
       </div>
       <Footer />
-    </>
+    </div>
   );
 }
 

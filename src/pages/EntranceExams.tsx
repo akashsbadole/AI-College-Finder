@@ -1,8 +1,10 @@
+import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "../components/header";
 import Footer from "../components/footer";
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import { Helmet } from "react-helmet-async";
 
 interface EntranceExams {
   examName: string;
@@ -94,7 +96,15 @@ function EntranceExams() {
     navigate(`/entrance/${encodeURIComponent(entranceName)}`);
   };
   return (
-    <>
+    <div className="min-h-screen bg-gray-50">
+      <Helmet>
+        <title>Entrance Exams in India | AI College Finder</title>
+        <meta name="description" content="Comprehensive guide to entrance exams in India including JEE, NEET, CAT, and more. Get detailed information about exam patterns, eligibility criteria, and preparation tips." />
+        <meta name="keywords" content="entrance exams, JEE, NEET, CAT, exam preparation, engineering entrance, medical entrance" />
+        <meta property="og:title" content="Entrance Exams in India | AI College Finder" />
+        <meta property="og:description" content="Comprehensive guide to entrance exams in India including JEE, NEET, CAT, and more. Get detailed information about exam patterns and eligibility criteria." />
+        <meta property="og:type" content="website" />
+      </Helmet>
       <Header />
       <div className="container mx-auto px-4 py-8">
         <h1 className="text-3xl font-bold text-center mb-8">
@@ -191,7 +201,7 @@ function EntranceExams() {
         </div>
       </div>
       <Footer />
-    </>
+    </div>
   );
 }
 

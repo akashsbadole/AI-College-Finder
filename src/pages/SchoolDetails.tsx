@@ -1,8 +1,10 @@
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import Header from "../components/header";
 import Footer from "../components/footer";
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { useState, useEffect } from "react";
+import React from "react";
+import { Helmet } from "react-helmet-async";
 
 interface SchoolInfo {
   name: string;
@@ -23,6 +25,7 @@ interface SchoolInfo {
 function SchoolDetails() {
   const { schoolName } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
   const [school, setSchool] = useState<SchoolInfo | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -106,7 +109,15 @@ function SchoolDetails() {
   }
 
   return (
-    <>
+    <div className="min-h-screen bg-gray-50">
+      <Helmet>
+        <title>{school?.name || 'School Details'} | AI College Finder</title>
+        <meta name="description" content={`Detailed information about ${school?.name}. Find admission details, facilities, academic performance, rankings, and more.`} />
+        <meta name="keywords" content={`${school?.name}, school details, CBSE school, admission, facilities, rankings`} />
+        <meta property="og:title" content={`${school?.name || 'School Details'} | AI College Finder`} />
+        <meta property="og:description" content={`Detailed information about ${school?.name}. Find admission details, facilities, academic performance, and rankings.`} />
+        <meta property="og:type" content="website" />
+      </Helmet>
       <Header />
       <div className="container mx-auto px-4 py-8">
         <button
@@ -170,7 +181,7 @@ function SchoolDetails() {
         </div>
       </div>
       <Footer />
-    </>
+    </div>
   );
 }
 

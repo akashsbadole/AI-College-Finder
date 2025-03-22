@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import Header from "../components/header";
 import Footer from "../components/footer";
+import { Helmet } from "react-helmet-async";
 
 const CollegeDetails = () => {
   const location = useLocation();
@@ -21,6 +22,14 @@ const CollegeDetails = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      <Helmet>
+        <title>{college?.collegeName || 'College Details'} | AI College Finder</title>
+        <meta name="description" content={`Detailed information about ${college?.collegeName}. Find admission details, courses offered, facilities, rankings, and more.`} />
+        <meta name="keywords" content={`${college?.collegeName}, college details, admission, courses, facilities, rankings`} />
+        <meta property="og:title" content={`${college?.collegeName || 'College Details'} | AI College Finder`} />
+        <meta property="og:description" content={`Detailed information about ${college?.collegeName}. Find admission details, courses offered, facilities, and rankings.`} />
+        <meta property="og:type" content="website" />
+      </Helmet>
       <Header />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="bg-white rounded-lg shadow-lg overflow-hidden">

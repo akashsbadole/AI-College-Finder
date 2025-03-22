@@ -42,6 +42,7 @@ import HeroSection from "./components/HeroSection";
 import CollegeDetails from "./pages/CollegeDetails";
 import SchoolDetails from "./pages/SchoolDetails";
 import EntranceExamDetails from "./pages/EntranceExamDetails";
+import { HelmetProvider, Helmet } from "react-helmet-async";
 
 // Create a new Home component to use navigation
 function Home() {
@@ -160,6 +161,14 @@ function Home() {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      <Helmet>
+        <title>AI College Finder - Find Your Perfect College</title>
+        <meta name="description" content="Discover the best colleges, schools, and entrance exams in India. Get AI-powered recommendations based on your preferences and academic performance." />
+        <meta name="keywords" content="college finder, school finder, entrance exams, education, AI recommendations, Indian colleges, CBSE schools" />
+        <meta property="og:title" content="AI College Finder - Find Your Perfect College" />
+        <meta property="og:description" content="Discover the best colleges, schools, and entrance exams in India. Get AI-powered recommendations based on your preferences." />
+        <meta property="og:type" content="website" />
+      </Helmet>
       <Header />
       {/* Hero Section */}
       <div className="bg-gradient-to-r from-indigo-600 to-blue-500">
@@ -451,18 +460,20 @@ function Home() {
 // Simplify the App component
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/engineering-colleges" element={<EngineeringColleges />} />
-        <Route path="/medical-colleges" element={<MedicalColleges />} />
-        <Route path="/entrance-exams" element={<EntranceExams />} />
-        <Route path="/entrance/:examName" element={<EntranceExamDetails />} />
-        <Route path="/cbse-schools" element={<BestCBSESchools />} />
-        <Route path="/college/:collegeName" element={<CollegeDetails />} />
-        <Route path="/school/:schoolName" element={<SchoolDetails />} />
-      </Routes>
-    </Router>
+    <HelmetProvider>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/engineering-colleges" element={<EngineeringColleges />} />
+          <Route path="/medical-colleges" element={<MedicalColleges />} />
+          <Route path="/best-cbse-schools" element={<BestCBSESchools />} />
+          <Route path="/entrance-exams" element={<EntranceExams />} />
+          <Route path="/college/:name" element={<CollegeDetails />} />
+          <Route path="/school/:name" element={<SchoolDetails />} />
+          <Route path="/exam/:name" element={<EntranceExamDetails />} />
+        </Routes>
+      </Router>
+    </HelmetProvider>
   );
 }
 

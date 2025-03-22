@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { MedCollege } from "../types";
 import { Button } from "../components/ui/button";
 import { Search, X } from "lucide-react";
+import React from "react";
+import { Helmet } from "react-helmet-async";
 
 function MedicalMedColleges() {
   const [Medcolleges, setMedColleges] = useState<MedCollege[]>([]);
@@ -70,6 +72,14 @@ function MedicalMedColleges() {
 
   return (
     <>
+      <Helmet>
+        <title>Top Medical Colleges in India | AI College Finder</title>
+        <meta name="description" content="Discover the best medical colleges in India including AIIMS, government medical colleges, and private medical institutions. Get comprehensive information about courses, rankings, and admission procedures." />
+        <meta name="keywords" content="medical colleges, AIIMS, medical admission, top medical colleges, MBBS, medical courses" />
+        <meta property="og:title" content="Top Medical Colleges in India | AI College Finder" />
+        <meta property="og:description" content="Discover the best medical colleges in India including AIIMS, government medical colleges, and private medical institutions." />
+        <meta property="og:type" content="website" />
+      </Helmet>
       {/* Header */}
       <Header />
       <div className="min-h-screen bg-gray-50 p-8">

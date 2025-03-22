@@ -1,8 +1,10 @@
+import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "../components/header";
 import Footer from "../components/footer";
 import { GoogleGenerativeAI } from '@google/generative-ai';
+import { Helmet } from "react-helmet-async";
 
 interface SchoolInfo {
   name: string;
@@ -80,7 +82,15 @@ function BestCBSESchools() {
   };
 
   return (
-    <>
+    <div className="min-h-screen bg-gray-50">
+      <Helmet>
+        <title>Best CBSE Schools in India | AI College Finder</title>
+        <meta name="description" content="Find the top CBSE schools in India. Get detailed information about school rankings, facilities, admission procedures, and academic excellence." />
+        <meta name="keywords" content="CBSE schools, top schools, school admission, best schools, education, CBSE board" />
+        <meta property="og:title" content="Best CBSE Schools in India | AI College Finder" />
+        <meta property="og:description" content="Find the top CBSE schools in India. Get detailed information about school rankings, facilities, and admission procedures." />
+        <meta property="og:type" content="website" />
+      </Helmet>
       <Header />
       <div className="container mx-auto px-4 py-8">
         <h1 className="text-3xl font-bold text-center mb-8">Find CBSE Schools in India</h1>
@@ -140,7 +150,7 @@ function BestCBSESchools() {
         </div>
       </div>
       <Footer />
-    </>
+    </div>
   );
 }
 

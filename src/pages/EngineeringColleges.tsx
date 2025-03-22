@@ -3,6 +3,7 @@ import { Search, X } from "lucide-react";
 import { Button } from "../components/ui/button";
 import Header from "../components/header";
 import Footer from "../components/footer";
+import { Helmet } from "react-helmet-async";
 
 interface College {
   Id: number;
@@ -88,6 +89,14 @@ export default function EngineeringColleges() {
 
   return (
     <>
+      <Helmet>
+        <title>Top Engineering Colleges in India | AI College Finder</title>
+        <meta name="description" content="Explore the best engineering colleges in India. Find detailed information about IITs, NITs, and other top engineering institutions including rankings, courses, and admission details." />
+        <meta name="keywords" content="engineering colleges, IITs, NITs, engineering admission, top engineering colleges, engineering courses" />
+        <meta property="og:title" content="Top Engineering Colleges in India | AI College Finder" />
+        <meta property="og:description" content="Explore the best engineering colleges in India. Find detailed information about IITs, NITs, and other top engineering institutions." />
+        <meta property="og:type" content="website" />
+      </Helmet>
       {/* Header */}
       <Header />
       <div className="min-h-screen bg-gray-50 p-8">
