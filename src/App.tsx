@@ -46,6 +46,14 @@ import EntranceExamDetails from "./pages/EntranceExamDetails";
 import { HelmetProvider, Helmet } from "react-helmet-async";
 import Dashboard from "./pages/Dashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
+import AdminRoute from "./components/AdminRoute";
+import AdminPage from "./pages/admin/AdminPage";
+import CollegeSearch from "./pages/dashboard/CollegeSearch";
+import SchoolSearch from "./pages/dashboard/SchoolSearch";
+import DashboardEntranceExams from "./pages/dashboard/EntranceExams";
+import CareerAnalysis from "./pages/dashboard/CareerAnalysis";
+import Settings from "./pages/dashboard/Settings";
+import StudyMaterials from "./pages/dashboard/StudyMaterials";
 
 // Add this near the top of the file, after imports
 const clerkPubKey = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
@@ -476,6 +484,66 @@ function App() {
               element={
                 <ProtectedRoute>
                   <Dashboard />
+                </ProtectedRoute>
+              }
+            />
+            {/* Dashboard Routes */}
+            <Route
+              path="/dashboard/college-search"
+              element={
+                <ProtectedRoute>
+                  <CollegeSearch />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/dashboard/school-search"
+              element={
+                <ProtectedRoute>
+                  <SchoolSearch />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/dashboard/entrance-exams"
+              element={
+                <ProtectedRoute>
+                  <EntranceExams />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/dashboard/career-analysis"
+              element={
+                <ProtectedRoute>
+                  <CareerAnalysis />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/dashboard/study-materials"
+              element={
+                <ProtectedRoute>
+                  <StudyMaterials />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/dashboard/settings"
+              element={
+                <ProtectedRoute>
+                  <Settings />
+                </ProtectedRoute>
+              }
+            />
+            {/* Admin Routes */}
+            <Route
+              path="/dashboard/admin/*"
+              element={
+                <ProtectedRoute>
+                  <AdminRoute>
+                    <AdminPage />
+                  </AdminRoute>
                 </ProtectedRoute>
               }
             />
