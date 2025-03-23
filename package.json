@@ -12,6 +12,8 @@
   "dependencies": {
     "@clerk/clerk-react": "^5.25.2",
     "@google/generative-ai": "^0.2.1",
+    "@huggingface/inference": "^3.6.1",
+    "appwrite": "^17.0.1",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "lucide-react": "^0.344.0",

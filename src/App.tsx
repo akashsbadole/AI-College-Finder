@@ -54,6 +54,7 @@ import DashboardEntranceExams from "./pages/dashboard/EntranceExams";
 import CareerAnalysis from "./pages/dashboard/CareerAnalysis";
 import Settings from "./pages/dashboard/Settings";
 import StudyMaterials from "./pages/dashboard/StudyMaterials";
+import Counseling from "./pages/Counseling";
 
 // Add this near the top of the file, after imports
 const clerkPubKey = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
@@ -554,6 +555,7 @@ function App() {
             <Route path="/medical-colleges" element={<MedicalColleges />} />
             <Route path="/best-cbse-schools" element={<BestCBSESchools />} />
             <Route path="/entrance-exams" element={<EntranceExams />} />
+            <Route path="/counseling" element={<Counseling />} />
           </Routes>
         </Router>
       </HelmetProvider>

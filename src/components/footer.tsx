@@ -8,6 +8,7 @@ import {
   Twitter,
 } from "lucide-react";
 import React from "react";
+import { Link } from "react-router-dom";
 
 function footer() {
   return (
@@ -29,24 +30,24 @@ function footer() {
               <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
               <ul className="space-y-2 text-gray-400">
                 <li>
-                  <a href="#" className="hover:text-white">
+                  <Link to="/" className="hover:text-white">
                     About Us
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-white">
+                  <Link to="/college-search" className="hover:text-white">
                     College Finder
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-white">
+                  <Link to="/school-search" className="hover:text-white">
                     School Directory
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-white">
+                  <Link to="/entrance-exams" className="hover:text-white">
                     Exam Calendar
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -54,24 +55,24 @@ function footer() {
               <h3 className="text-lg font-semibold mb-4">Resources</h3>
               <ul className="space-y-2 text-gray-400">
                 <li>
-                  <a href="#" className="hover:text-white">
+                  <Link to="/study-materials" className="hover:text-white">
                     Study Materials
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-white">
+                  <Link to="/career-analysis" className="hover:text-white">
                     Career Guide
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-white">
+                  <Link to="/counseling" className="hover:text-white">
                     Counselling
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-white">
+                  <Link to="/scholarships" className="hover:text-white">
                     Scholarships
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -84,7 +85,7 @@ function footer() {
                 </li>
                 <li className="flex items-center space-x-2">
                   <Mail className="h-5 w-5" />
-                  <span>support@bharateduai.com</span>
+                  <span>support@IndianEduAI.com</span>
                 </li>
               </ul>
               <div className="mt-4 flex space-x-4">
